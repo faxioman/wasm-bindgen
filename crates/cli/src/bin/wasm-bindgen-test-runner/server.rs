@@ -40,7 +40,7 @@ pub(crate) fn spawn(
     "#;
 
     let wbg_import_script = if test_mode.no_modules() {
-        String::from(
+        format!(
             r#"
             let Context = wasm_bindgen.WasmBindgenTestContext;
             let __wbgtest_console_debug = wasm_bindgen.__wbgtest_console_debug;
@@ -48,9 +48,10 @@ pub(crate) fn spawn(
             let __wbgtest_console_info = wasm_bindgen.__wbgtest_console_info;
             let __wbgtest_console_warn = wasm_bindgen.__wbgtest_console_warn;
             let __wbgtest_console_error = wasm_bindgen.__wbgtest_console_error;
-            {cov_import}
+            {}
             let init = wasm_bindgen;
             "#,
+            cov_import
         )
     } else {
         format!(
